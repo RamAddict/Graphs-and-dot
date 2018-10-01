@@ -1,0 +1,12 @@
+digraph G {
+    size = "35,35"
+    bolsonaro [shape = box];
+    bolsonaro -> faca [color = red]
+    faca -> presidência;
+    bolsonaro -> policia;
+    bolsonaro -> exército [weight = 800, label = " lambe"];
+    presidência -> {prender_lula, reeleito} 
+    presidência [color = blue, style = bold, shape = polygon ,sides = 3]
+    prender_lula [shape = polygon, style = filled, color = ".6 .6 .6"]
+    [sides = 5, skew = .1, peripheries = 2];
+}
