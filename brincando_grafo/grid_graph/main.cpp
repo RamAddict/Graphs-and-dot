@@ -32,12 +32,14 @@ TEST_CASE("gridGraph") {
         EdgeMapInt grid_weight(grid);
         EdgeMapInt capacity(grid);
         int i = 1;
+        std::priority_queue<std::pair<Node&, int&>, std::vector<std::pair<Node, int>>, Node_compare> openSet;
         for (EdgeIt it(grid); it != INVALID; ++it) {
             grid_weight[it] = i;
             capacity[it] = 1;
             std::cout << "edge: " << grid.id(it) << " with weight: " << grid_weight[it] << std::endl;
             i++;
         }
+        
         // grid_weight[grid.edgeFromId(27)] = 200;
             // capacity[grid.edgeFromId(3)] = 0;
             // capacity[grid.edgeFromId(8)] = 0;
