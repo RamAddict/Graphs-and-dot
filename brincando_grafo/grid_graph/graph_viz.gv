@@ -1,51 +1,161 @@
 digraph G {
-24->23 [arrowhead = "none" label="1:1"];
-24->19 [arrowhead = "none" label="21:1"];
-23->22 [arrowhead = "none" label="2:1"];
-23->18 [arrowhead = "none" label="22:1"];
-22->21 [arrowhead = "none" label="3:1"];
-22->17 [arrowhead = "none" label="23:1"];
-21->20 [arrowhead = "none" label="4:1"];
-21->16 [arrowhead = "none" label="24:1"];
-20->15 [arrowhead = "none" label="25:1"];
-19->18 [arrowhead = "none" label="5:1"];
-19->14 [arrowhead = "none" label="26:1"];
-18->17 [arrowhead = "none" label="6:1"];
-18->13 [arrowhead = "none" label="27:1"];
-17->16 [arrowhead = "none" label="7:1"];
-17->12 [arrowhead = "none" label="28:1"];
-16->15 [arrowhead = "none" label="8:1"];
-16->11 [arrowhead = "none" label="29:1"];
-15->10 [arrowhead = "none" label="30:1"];
-14->13 [arrowhead = "none" label="9:1"];
-14->9 [arrowhead = "none" label="31:1"];
-13->12 [arrowhead = "none" label="10:1"];
-13->8 [arrowhead = "none" label="32:1"];
-12->11 [arrowhead = "none" label="11:1"];
-12->7 [arrowhead = "none" label="33:1"];
-11->10 [arrowhead = "none" label="12:1"];
-11->6 [arrowhead = "none" label="34:1"];
-10->5 [arrowhead = "none" label="35:1"];
-9->8 [arrowhead = "none" label="13:1"];
-9->4 [arrowhead = "none" label="36:1"];
-8->7 [arrowhead = "none" label="14:1"];
-8->3 [arrowhead = "none" label="37:1"];
-7->6 [arrowhead = "none" label="15:1"];
-7->2 [arrowhead = "none" label="38:1"];
-6->5 [arrowhead = "none" label="16:1"];
-6->1 [arrowhead = "none" label="39:1"];
-5->0 [arrowhead = "none" label="40:1"];
-4->3 [arrowhead = "none" label="17:1"];
-3->2 [arrowhead = "none" label="18:1"];
-2->1 [arrowhead = "none" label="19:1"];
-1->0 [arrowhead = "none" label="20:1"];
-{rank = same; 20 15 10 5 0 }
-{rank = same; 21 16 11 6 1 }
-{rank = same; 22 17 12 7 2 }
-{rank = same; 23 18 13 8 3 }
-{rank = same; 24 19 14 9 4 }
+
+79->78->77->76->75->74->73->72->71->70->60->50->40->30->20->10->0[color = "red" weight = 0 penwidth = 2.5]
+24->23->22->21->11->1->0[color = "green" weight = 0 penwidth = 2.5]
+24->14->13->12->11->10[color = "blue" weight = 0 penwidth = 2.5]
+79->78 [arrowhead = "none" label="1:0"];
+79->69 [arrowhead = "none" label="73:1"];
+78->77 [arrowhead = "none" label="2:0"];
+78->68 [arrowhead = "none" label="74:1"];
+77->76 [arrowhead = "none" label="3:0"];
+77->67 [arrowhead = "none" label="75:1"];
+76->75 [arrowhead = "none" label="4:0"];
+76->66 [arrowhead = "none" label="76:1"];
+75->74 [arrowhead = "none" label="5:0"];
+75->65 [arrowhead = "none" label="77:1"];
+74->73 [arrowhead = "none" label="6:0"];
+74->64 [arrowhead = "none" label="78:1"];
+73->72 [arrowhead = "none" label="7:0"];
+73->63 [arrowhead = "none" label="79:1"];
+72->71 [arrowhead = "none" label="8:0"];
+72->62 [arrowhead = "none" label="80:1"];
+71->70 [arrowhead = "none" label="9:0"];
+71->61 [arrowhead = "none" label="81:1"];
+70->60 [arrowhead = "none" label="82:0"];
+69->68 [arrowhead = "none" label="10:1"];
+69->59 [arrowhead = "none" label="83:1"];
+68->67 [arrowhead = "none" label="11:1"];
+68->58 [arrowhead = "none" label="84:1"];
+67->66 [arrowhead = "none" label="12:1"];
+67->57 [arrowhead = "none" label="85:1"];
+66->65 [arrowhead = "none" label="13:1"];
+66->56 [arrowhead = "none" label="86:1"];
+65->64 [arrowhead = "none" label="14:1"];
+65->55 [arrowhead = "none" label="87:1"];
+64->63 [arrowhead = "none" label="15:1"];
+64->54 [arrowhead = "none" label="88:1"];
+63->62 [arrowhead = "none" label="16:1"];
+63->53 [arrowhead = "none" label="89:1"];
+62->61 [arrowhead = "none" label="17:1"];
+62->52 [arrowhead = "none" label="90:1"];
+61->60 [arrowhead = "none" label="18:1"];
+61->51 [arrowhead = "none" label="91:1"];
+60->50 [arrowhead = "none" label="92:0"];
+59->58 [arrowhead = "none" label="19:1"];
+59->49 [arrowhead = "none" label="93:1"];
+58->57 [arrowhead = "none" label="20:1"];
+58->48 [arrowhead = "none" label="94:1"];
+57->56 [arrowhead = "none" label="21:1"];
+57->47 [arrowhead = "none" label="95:1"];
+56->55 [arrowhead = "none" label="22:1"];
+56->46 [arrowhead = "none" label="96:1"];
+55->54 [arrowhead = "none" label="23:1"];
+55->45 [arrowhead = "none" label="97:1"];
+54->53 [arrowhead = "none" label="24:1"];
+54->44 [arrowhead = "none" label="98:1"];
+53->52 [arrowhead = "none" label="25:1"];
+53->43 [arrowhead = "none" label="99:1"];
+52->51 [arrowhead = "none" label="26:1"];
+52->42 [arrowhead = "none" label="100:1"];
+51->50 [arrowhead = "none" label="27:1"];
+51->41 [arrowhead = "none" label="101:1"];
+50->40 [arrowhead = "none" label="102:0"];
+49->48 [arrowhead = "none" label="28:1"];
+49->39 [arrowhead = "none" label="103:1"];
+48->47 [arrowhead = "none" label="29:1"];
+48->38 [arrowhead = "none" label="104:1"];
+47->46 [arrowhead = "none" label="30:1"];
+47->37 [arrowhead = "none" label="105:1"];
+46->45 [arrowhead = "none" label="31:1"];
+46->36 [arrowhead = "none" label="106:1"];
+45->44 [arrowhead = "none" label="32:1"];
+45->35 [arrowhead = "none" label="107:1"];
+44->43 [arrowhead = "none" label="33:1"];
+44->34 [arrowhead = "none" label="108:1"];
+43->42 [arrowhead = "none" label="34:1"];
+43->33 [arrowhead = "none" label="109:1"];
+42->41 [arrowhead = "none" label="35:1"];
+42->32 [arrowhead = "none" label="110:1"];
+41->40 [arrowhead = "none" label="36:1"];
+41->31 [arrowhead = "none" label="111:1"];
+40->30 [arrowhead = "none" label="112:0"];
+39->38 [arrowhead = "none" label="37:1"];
+39->29 [arrowhead = "none" label="113:1"];
+38->37 [arrowhead = "none" label="38:1"];
+38->28 [arrowhead = "none" label="114:1"];
+37->36 [arrowhead = "none" label="39:1"];
+37->27 [arrowhead = "none" label="115:1"];
+36->35 [arrowhead = "none" label="40:1"];
+36->26 [arrowhead = "none" label="116:1"];
+35->34 [arrowhead = "none" label="41:1"];
+35->25 [arrowhead = "none" label="117:1"];
+34->33 [arrowhead = "none" label="42:1"];
+34->24 [arrowhead = "none" label="118:1"];
+33->32 [arrowhead = "none" label="43:1"];
+33->23 [arrowhead = "none" label="119:1"];
+32->31 [arrowhead = "none" label="44:1"];
+32->22 [arrowhead = "none" label="120:1"];
+31->30 [arrowhead = "none" label="45:1"];
+31->21 [arrowhead = "none" label="121:1"];
+30->20 [arrowhead = "none" label="122:0"];
+29->28 [arrowhead = "none" label="46:1"];
+29->19 [arrowhead = "none" label="123:1"];
+28->27 [arrowhead = "none" label="47:1"];
+28->18 [arrowhead = "none" label="124:1"];
+27->26 [arrowhead = "none" label="48:1"];
+27->17 [arrowhead = "none" label="125:1"];
+26->25 [arrowhead = "none" label="49:1"];
+26->16 [arrowhead = "none" label="126:1"];
+25->24 [arrowhead = "none" label="50:1"];
+25->15 [arrowhead = "none" label="127:1"];
+24->23 [arrowhead = "none" label="51:0"];
+24->14 [arrowhead = "none" label="128:0"];
+23->22 [arrowhead = "none" label="52:0"];
+23->13 [arrowhead = "none" label="129:1"];
+22->21 [arrowhead = "none" label="53:0"];
+22->12 [arrowhead = "none" label="130:1"];
+21->20 [arrowhead = "none" label="54:1"];
+21->11 [arrowhead = "none" label="131:0"];
+20->10 [arrowhead = "none" label="132:0"];
+19->18 [arrowhead = "none" label="55:1"];
+19->9 [arrowhead = "none" label="133:1"];
+18->17 [arrowhead = "none" label="56:1"];
+18->8 [arrowhead = "none" label="134:1"];
+17->16 [arrowhead = "none" label="57:1"];
+17->7 [arrowhead = "none" label="135:1"];
+16->15 [arrowhead = "none" label="58:1"];
+16->6 [arrowhead = "none" label="136:1"];
+15->14 [arrowhead = "none" label="59:1"];
+15->5 [arrowhead = "none" label="137:1"];
+14->13 [arrowhead = "none" label="60:0"];
+14->4 [arrowhead = "none" label="138:1"];
+13->12 [arrowhead = "none" label="61:0"];
+13->3 [arrowhead = "none" label="139:1"];
+12->11 [arrowhead = "none" label="62:0"];
+12->2 [arrowhead = "none" label="140:1"];
+11->10 [arrowhead = "none" label="63:0"];
+11->1 [arrowhead = "none" label="141:0"];
+10->0 [arrowhead = "none" label="142:0"];
+9->8 [arrowhead = "none" label="64:1"];
+8->7 [arrowhead = "none" label="65:1"];
+7->6 [arrowhead = "none" label="66:1"];
+6->5 [arrowhead = "none" label="67:1"];
+5->4 [arrowhead = "none" label="68:1"];
+4->3 [arrowhead = "none" label="69:1"];
+3->2 [arrowhead = "none" label="70:1"];
+2->1 [arrowhead = "none" label="71:1"];
+1->0 [arrowhead = "none" label="72:0"];
+{rank = same; 70 60 50 40 30 20 10 0 }
+{rank = same; 71 61 51 41 31 21 11 1 }
+{rank = same; 72 62 52 42 32 22 12 2 }
+{rank = same; 73 63 53 43 33 23 13 3 }
+{rank = same; 74 64 54 44 34 24 14 4 }
+{rank = same; 75 65 55 45 35 25 15 5 }
+{rank = same; 76 66 56 46 36 26 16 6 }
+{rank = same; 77 67 57 47 37 27 17 7 }
+{rank = same; 78 68 58 48 38 28 18 8 }
+{rank = same; 79 69 59 49 39 29 19 9 }
 
 size = "35,35"
 
-24->19->14->9->4->3->2->7->12->17->22->21->20->15->10->5->0[color = "red"]
 }
