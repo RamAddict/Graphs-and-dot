@@ -28,14 +28,23 @@ struct Node_compare {
     };
 TEST_CASE("gridGraph") {
     SECTION("creating a grid graph") {
-        Graph grid(20, 20);
+        Graph grid(5, 5);
         EdgeMapInt grid_weight(grid);
+        EdgeMapInt capacity(grid);
+        int i = 1;
         for (EdgeIt it(grid); it != INVALID; ++it) {
-            grid_weight[it] =1;
-            //std::cout << "edge: " << grid.id(it) << " with weight: " << grid_weight[it] << std::endl;
+            grid_weight[it] = i;
+            capacity[it] = 1;
+            std::cout << "edge: " << grid.id(it) << " with weight: " << grid_weight[it] << std::endl;
+            i++;
         }
+        // grid_weight[grid.edgeFromId(27)] = 200;
+            // capacity[grid.edgeFromId(3)] = 0;
+            // capacity[grid.edgeFromId(8)] = 0;
+            // capacity[grid.edgeFromId(4)] = 0;
+            // capacity[grid.edgeFromId(8)] = 0;
+            // capacity[grid.edgeFromId(9)] = 0;
         // std::set<std::pair<Node, int>, Node_compare> as;
-
         // as.insert(std::make_pair(grid.nodeFromId(0), 923));
         // for (auto it = as.begin(); it != as.end(); ++it) {
         //      std::cout << it->second << "->" << grid.id(it->first) << std::endl;
@@ -48,8 +57,8 @@ TEST_CASE("gridGraph") {
         auto digraphName = "G";
         
         gr->open_digraph_definition(fileName, digraphName);
-        gr->draw_graph(grid, fileName, grid_weight, false);
-        std::string path = gr->A_STAR(grid, grid_weight, grid(0,0), grid.nodeFromId(grid.maxNodeId()));
+        gr->draw_graph(grid, fileName, grid_weight, capacity);
+        std::string path = gr->A_STAR(grid, grid_weight, grid(0,0), grid.nodeFromId(grid.maxNodeId()), capacity);
         gr->drawPath(path, fileName);
         gr->close_graph_definition(fileName);
         free(gr);

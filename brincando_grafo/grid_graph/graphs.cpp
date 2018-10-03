@@ -58,54 +58,81 @@ void graphs::dijkstraGambiarra(Graph& graph, EdgeMapInt& edgeWeights, Node start
 
 } // end of function
 
-std::string graphs::A_STAR(Graph graph, EdgeMapInt& edgeWeights, Node start, Node target){
-    Graph::NodeMap<bool> is_visited(graph, false);  // openSetAuxiliar, pra n ter de perocrrer o priority queue
-    Graph::NodeMap<Node> parents(graph, INVALID);  // para reconstruir o caminho de volta
-    Graph::NodeMap<int> nodeCostG(graph, std::numeric_limits<int>::max());  // gScore, valor de custo sem heuristica
-    Graph::NodeMap<int> nodeCostF(graph, std::numeric_limits<int>::max());  // fScore = gscore +heuristica
-    std::set<Node> closedSet;  // nodes alredy evaluated
-    std::priority_queue<std::pair<Node&, int&>, std::vector<std::pair<Node, int>>, Compare> openSet;  // nodes discovered
+std::string graphs::A_STAR(Graph graph, EdgeMapInt& edgeWeights, Node start, Node target, EdgeMapInt& capacity){
     std::string path;
-
-    std::map<int, Node> o; // primeiro smepre maior
-
-    nodeCostG[start] = 0;  // custo de start é zero
-    const double MINIMUM_COST = .5;  // minimum cost é o menor valor entre os edges do grafo
-    // first node cost completely heuristic
-    nodeCostF[start] = heuristic(start, target, graph, MINIMUM_COST);
-    openSet.push(std::make_pair(start, nodeCostF[start]));  // adiciono start na lista de nodos a analisar
-    auto current_node = start;  // primeiro node a analisar é o start
+    const double MINIMUM_COST = 1;  // minimum cost é o menor valor entre os edges do grafo
+    Node current_node;
+    /////////////////////CLOSED SET
+    std::set<Node> closedSet;  // nodes alredy evaluated
     
-    while(current_node != target)
+    /////////////////////OPEN SETS
+    std::priority_queue<std::pair<Node&, int&>, std::vector<std::pair<Node, int>>, Compare> openSet;  // nodes discovered
+    Graph::NodeMap<bool> is_visited(graph, false);  // openSetAuxiliar, pra n ter de perocrrer o priority queue
+    //(std::map<int, Node> o; // primeiro smepre maior) 
+
+    /////////////////////CAME FROM
+    Graph::NodeMap<Node> parents(graph, INVALID);  // para reconstruir o caminho de volta
+    
+    /////////////////////G_MAP WITH INFINITY
+    Graph::NodeMap<int> _GScore(graph, std::numeric_limits<int>::max());  // gScore, valor de custo sem heuristica
+    
+    /////////////////////F_MAP WITH INFINITY 
+    Graph::NodeMap<int> _FScore(graph, std::numeric_limits<int>::max());  // fScore = gscore +heuristica
+    
+    /////////////////////COST FOR START NODE IS ZERO
+    _GScore[start] = 0;
+
+    /////////////////////FSCORE FOR START IS COMPLETELY HEURISTIC
+    _FScore[start] = heuristic(start, target, graph, MINIMUM_COST);
+    
+    //!!!!!
+    openSet.push(std::make_pair(start, _FScore[start]));  // adiciono start na lista de nodos a analisar
+    //!!!!!
+
+    while(!openSet.empty())
     {  // posso colocar um Priority_queue ou um set, sorted deixa O(1), mas permite repeticao. Set deixa sem repeticao mas fica O(n)
+      //~~~~~~~~~~~~~~ current = node com o custo mais baixo, o primieiro
       current_node = openSet.top().first;
+      //~~~~~~~~~~~~~~
+      if (current_node == target) {
+        std::cout << "killme" << std::endl;
+        break;
+      }
+      ///////////////REMOVE FROM OPENSETS
       openSet.pop();
       is_visited[current_node] = true;
+      ///////////////ADD TO CLOSED SET
       closedSet.insert(current_node);
 
-      for (IncEdgeIt it(graph, current_node); it != INVALID; ++it)
+
+      for (OutArcIt it(graph, current_node); it != INVALID; ++it)
       {
+        // if (capacity[it] == 0) 
+        //   continue;
+        /////////////////for each neighbour or current
         Node oppositeNode(graph.oppositeNode(current_node, it));
         
         if (closedSet.find(oppositeNode) != closedSet.end()) {
           continue;
         }
-        auto tentative = nodeCostG[current_node] + edgeWeights[it];
+        /////////////////Tentative G_score
+        auto tentative = _GScore[current_node] + edgeWeights[it];
+        
 
         if (is_visited[oppositeNode] == false) {
         is_visited[oppositeNode] = true;
-        nodeCostG[oppositeNode] = tentative;
-        nodeCostF[oppositeNode] = nodeCostG[oppositeNode] + heuristic(oppositeNode, target, graph, MINIMUM_COST);
-        parents[oppositeNode] = current_node;
-        openSet.push(std::make_pair(oppositeNode, nodeCostF[oppositeNode])); //TODO adaptar pra conter o fscore
-        
-        } else if(tentative >= nodeCostG[oppositeNode] ) {
+        } else if(tentative >= _GScore[oppositeNode] ) {
             continue;
         }
+        _GScore[oppositeNode] = tentative;
+        _FScore[oppositeNode] = _GScore[oppositeNode] + heuristic(oppositeNode, target, graph, MINIMUM_COST);
+        
+        openSet.push(std::make_pair(oppositeNode, _FScore[oppositeNode])); //TODO adaptar pra conter o fscore
+        parents[oppositeNode] = current_node;
       }
       //std::cout << "visited: " << graph.id(current_node) << std::endl;
     }
-    std::cout <<"Found target: " << graph.id(current_node) << " traversing to it has a minimum cost of: " << nodeCostG[current_node] << std::endl;
+    std::cout <<"Found target: " << graph.id(current_node) << " traversing to it has a minimum cost of: " << _GScore[current_node] << std::endl;
     while(current_node != start)
       {
         // std::cout << graph.id(current_node) << "<-";
@@ -119,7 +146,7 @@ std::string graphs::A_STAR(Graph graph, EdgeMapInt& edgeWeights, Node start, Nod
 double graphs::heuristic(Node current, Node target, Graph graph, double minCost) {
     auto dx = abs(graph.pos(current).x - graph.pos(target).x);
     auto dy = abs(graph.pos(current).y - graph.pos(target).y);
-    return minCost * (dx + dy);
+    return minCost * abs(dx + dy);
 }
 
 void graphs::open_digraph_definition(std::string fileName, std::string digraphName) {
@@ -136,43 +163,43 @@ void graphs::close_graph_definition(std::string fileName) {
   file.close();
 }
 
-void graphs::draw_graph(Graph& gr, std::string fileName, EdgeMapInt& weights, bool with_arrow_head) {
-    
+void graphs::draw_graph(Graph& gr, std::string fileName, EdgeMapInt& weights, EdgeMapInt& capacity ) {
+    Graph::NodeMap<bool> is_visited(gr, false);
     std::ofstream file;
     file.open(fileName, std::ios_base::app);
     Node current_node = gr.nodeFromId(0);  // primeiro
-    if (with_arrow_head == false) {
 
       for (NodeIt current_node(gr); current_node != INVALID; ++ current_node) 
       {
-        for (IncEdgeIt it(gr, current_node); it != INVALID; ++it) {
+        for (OutArcIt it(gr, current_node); it != INVALID; ++it) {
           
         Node oppositeNode(gr.oppositeNode(current_node, it));
-        //std::cout << gr.id(current_node) << "->" << gr.id(oppositeNode) << " " << std::flush;
-        file << gr.id(current_node) << "->"
-        << gr.id(oppositeNode) << 
-        " [arrowhead = \"none\" label=\"" << weights[it] << "\"];\n";
-        std::fflush;
+        if (is_visited[oppositeNode] == false) {
+          file << gr.id(current_node) << "->"
+          << gr.id(oppositeNode) << 
+          " [arrowhead = \"none\" label=\"" << weights[it] << ":" << capacity[it] << "\"];\n";
+          std::fflush;
+          is_visited[current_node] = true;
+          }
         }
       }
-    } else {
-      for (NodeIt current_node(gr); current_node != INVALID; ++ current_node) 
-      {
-        for (IncEdgeIt it(gr, current_node); it != INVALID; ++it) {
-          
-        Node oppositeNode(gr.oppositeNode(current_node, it));
-        //std::cout << gr.id(current_node) << "->" << gr.id(oppositeNode) << " " << std::flush;
-        file << gr.id(current_node) << "->"
-        << gr.id(oppositeNode) << 
-        " [label=\"" << weights[it] << "\"];\n";
-        std::fflush;
-        }
-      }
-    }
-    // grid graphs que sejam nxn !!!
-    //auto n_squared = gr.maxNodeId() + 1;
-    //int n = std::sqrt(n_squared);
-    //std::cout << n << std::endl;
+    // else {
+    //   for (NodeIt current_node(gr); current_node != INVALID; ++ current_node) 
+    //   {
+    //     for (OutArcIt it(gr, current_node); it != INVALID; ++it) {
+        
+    //     Node oppositeNode(gr.oppositeNode(current_node, it));
+    //     if (is_visited[oppositeNode] == false) {
+    //       //std::cout << gr.id(current_node) << "->" << gr.id(oppositeNode) << " " << std::flush;
+    //       file << gr.id(current_node) << "->"
+    //       << gr.id(oppositeNode) << 
+    //       " [label=\"" << weights[it] << "\"];\n";
+    //       std::fflush;
+    //       is_visited[current_node] = true;
+    //       }
+    //     }
+    //   }
+    // }
     
     auto colunas = gr.height();
     auto linhas = gr.width();
