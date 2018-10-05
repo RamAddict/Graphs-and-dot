@@ -35,7 +35,7 @@ TEST_CASE("gridGraph") {
         int i = 1;
         //std::priority_queue<std::pair<Node&, int&>, std::vector<std::pair<Node, int>>, Node_compare> openSet;
         for (EdgeIt it(grid); it != INVALID; ++it) {
-            grid_weight[it] = i;
+            grid_weight[it] = 1;
             capacity[it] = 1;
             std::cout << "edge: " << grid.id(it) << " with weight: " << grid_weight[it] << std::endl;
             i++;
@@ -70,6 +70,8 @@ TEST_CASE("gridGraph") {
         gr->drawPath(path, fileName, "green");
         path = gr->A_STAR(grid, grid_weight, grid(0,1), grid(4,2), capacity);
         gr->drawPath(path, fileName, "blue");
+        path = gr->A_STAR(grid, grid_weight, grid(2,0), grid.nodeFromId(grid.maxNodeId()), capacity);
+        gr->drawPath(path, fileName, "yellow");
         // draw graph must be invoked before all the drawPaths
         gr->draw_graph(grid, fileName, grid_weight, capacity);
         gr->close_graph_definition(fileName);
